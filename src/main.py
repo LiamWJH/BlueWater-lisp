@@ -1,14 +1,71 @@
 test_code = """
 (+ 1 2)           ; 3
 (* 2 (+ 1 3))     ; 8
-(define x 42)     ; binds x = 42
+(set x 42)     ; binds x = 42
 (if (> x 40) (print "big") "small") ; returns "big"
 (print "hello")
 (print x)
+(set a 0)
+(set a (scan "What number do you like?"))
+(print a)
 """
 #Goal write a program that can do that 
 #after that bind it to a vm
 #for now no consideration on string
+def tokenize(s: str):
+    tokens = []
+    i, n = 0, len(s)
+    while i < n:
+        c = s[i]
+        if c.isspace():
+            i += 1
+            continue
+
+        if c in '()':
+            tokens.append(c)
+            i += 1
+            continue
+
+        if c == '"':
+            i += 1
+            buf = []
+            while i < n:
+                if s[i] == '\\' and i + 1 < n:
+                    # keep escapes like \" or \\ intact
+                    buf.append(s[i + 1])
+                    i += 2
+                elif s[i] == '"':
+                    i += 1
+                    break
+                else:
+                    buf.append(s[i])
+                    i += 1
+            tokens.append('"' + ''.join(buf) + '"')
+            continue
+
+        # single-quoted strings (optional)
+        if c == "'":
+            i += 1
+            buf = []
+            while i < n and s[i] != "'":
+                if s[i] == '\\' and i + 1 < n:
+                    buf.append(s[i + 1])
+                    i += 2
+                else:
+                    buf.append(s[i]); i += 1
+            if i < n and s[i] == "'":
+                i += 1
+            tokens.append("'" + ''.join(buf) + "'")
+            continue
+
+        # symbols / numbers
+        j = i
+        while j < n and (not s[j].isspace()) and s[j] not in '()':
+            j += 1
+        tokens.append(s[i:j])
+        i = j
+
+    return tokens
 
 def atom(token):
     try:
@@ -32,10 +89,10 @@ def parse(tokens):
     else:
         return atom(token)
 ast = []
-preenv = {}
+env = {}
 
 def  evaluate(ast: list): # ast must be a single liner
-        KW = ["*", "/", "-",  "+", "define", "print", "if", ">", "<", ">=", "<=" ,"==", "!="]
+        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", ">", "<", ">=", "<=" ,"==", "!="]
         #print("dbg" + str(ast))
         if type(ast) == list:
             for idx, token in enumerate(ast):
@@ -62,16 +119,26 @@ def  evaluate(ast: list): # ast must be a single liner
                         return evaluate(ast[idx + 1]) != evaluate(ast[idx + 2])
                     
                     #Functions
-                    if token == "define":
-                        preenv[ast[idx + 1]] = evaluate(ast[idx + 2])
-                        return ("IDENT",ast[idx + 1],evaluate(ast[idx + 2]))
+                    if token == "set":
+                        name = ast[idx + 1]
+                        value = evaluate(ast[idx + 2])
+                        env[name] = value
+                        return (name,value)
                     if token == "print":
-                        return ("FUNC", "print", evaluate(ast[idx + 1]))
+                        value = evaluate(ast[idx + 1])
+                        print(value)
+                        return (value)
+                    if token == "scan":
+                        value = evaluate(ast[idx + 1])
+                        return input(value)
                     if token == "if":
-                        if evaluate(ast[idx + 1]):
-                            return evaluate(ast[idx + 2])
+                        cond = evaluate(ast[idx + 1])
+                        if cond:
+                            c1 = evaluate(ast[idx + 2])
+                            return c1
                         else:
-                            return evaluate(ast[idx + 3])
+                            c2 = evaluate(ast[idx + 3])
+                            return c2
 
         elif type(ast) == int or type(ast) == float:
             try:
@@ -86,39 +153,19 @@ def  evaluate(ast: list): # ast must be a single liner
             return ast[1:-1]
         else:
             if ast.isalpha():
-                return preenv[ast]
+                return env[ast]
             else:
                 print("sh*t shi*")
                 
-def run(instruction: list):
-    env = {}
-    for action in instruction:
-        if type(action) == tuple:
-            if action[0] != "IDENT":
-                funcname = action[1]
 
-                if funcname == "print":
-                    print(action[2])
-            else:
-                try:
-                    env[action[1]] = action[2]
-                except:
-                    print("shit"+str(action))
-        else:
-            #print("sh*t")
-            pass
-
-for line in test_code.splitlines():
-    line = line.split(";", 1)[0]
-    if not line.strip():
+ast = []
+for raw_line in test_code.splitlines():
+    code = raw_line.split(";", 1)[0]
+    if not code.strip():
         continue
-    ast.append(parse(line.replace('(', ' ( ').replace(')', ' ) ').split()))
+    tokens = tokenize(code)
+    ast.append(parse(tokens))
 
-finalast = []
 for line in ast:
-    finalast.append(evaluate(line))
-
-print("Ast final", finalast)
-
-run(finalast)
+    evaluate(line)
 
