@@ -1,13 +1,10 @@
 test_code = """
-(+ 1 2)           ; 3
-(* 2 (+ 1 3))     ; 8
-(set x 42)     ; binds x = 42
-(if (> x 40) (print "big") "small") ; returns "big"
-(print "hello")
-(print x)
-(set a 0)
-(set a (scan "What number do you like?"))
-(print a)
+(print "test init")
+(while 
+    (< (scan "number") 10)
+    (print "your number is smaller than 10")
+)
+(print "Now not...")
 """
 #Goal write a program that can do that 
 #after that bind it to a vm
@@ -82,17 +79,19 @@ def parse(tokens):
     token = tokens.pop(0)
     if token == '(':         # start new list
         L = []
+
         while tokens[0] != ')':
             L.append(parse(tokens))
         tokens.pop(0)        # discard ')'
         return L
+            
     else:
         return atom(token)
 ast = []
 env = {}
 
 def  evaluate(ast: list): # ast must be a single liner
-        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", ">", "<", ">=", "<=" ,"==", "!="]
+        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", ">", "<", ">=", "<=" ,"==", "!="]
         #print("dbg" + str(ast))
         if type(ast) == list:
             for idx, token in enumerate(ast):
@@ -108,7 +107,9 @@ def  evaluate(ast: list): # ast must be a single liner
                     if token == ">":
                         return evaluate(ast[idx + 1]) > evaluate(ast[idx + 2])
                     if token == "<":
-                        return evaluate(ast[idx + 1]) < evaluate(ast[idx + 2])
+                        a,b=evaluate(ast[idx + 1]),evaluate(ast[idx + 2])
+                        print(a,b)
+                        return a < b
                     if token == ">=":
                         return evaluate(ast[idx + 1]) >= evaluate(ast[idx + 2])
                     if token == "<=":
@@ -130,7 +131,7 @@ def  evaluate(ast: list): # ast must be a single liner
                         return (value)
                     if token == "scan":
                         value = evaluate(ast[idx + 1])
-                        return input(value)
+                        return evaluate(input(value))
                     if token == "if":
                         cond = evaluate(ast[idx + 1])
                         if cond:
@@ -139,33 +140,43 @@ def  evaluate(ast: list): # ast must be a single liner
                         else:
                             c2 = evaluate(ast[idx + 3])
                             return c2
-
+                    if token == "while":
+                        block = ast[idx+2:len(ast)]
+                        while evaluate(ast[idx + 1]):
+                            for line in block:
+                                evaluate(line)
         elif type(ast) == int or type(ast) == float:
-            try:
-                return int(ast)
-            except TypeError:
-                try:
-                    return float(ast)
-                except TypeError:
-                    print("sh*t")
-
-        elif ast.startswith("'") and ast.endswith("'") or ast.startswith('"') and ast.endswith('"'):
-            return ast[1:-1]
+            return ast
         else:
-            if ast.isalpha():
-                return env[ast]
+            if ast.isnumeric():
+                return int(ast)
+
+            elif ast.startswith("'") and ast.endswith("'") or ast.startswith('"') and ast.endswith('"'):
+                return ast[1:-1]
             else:
-                print("sh*t shi*")
+                if ast.isalpha():
+                    return env[ast]
+                else:
+                    try:
+                        return float(ast)
+                    except:
+                        print("sh*t")
                 
 
-ast = []
+# collect code without comments/blank lines
+src = []
 for raw_line in test_code.splitlines():
     code = raw_line.split(";", 1)[0]
-    if not code.strip():
-        continue
-    tokens = tokenize(code)
-    ast.append(parse(tokens))
+    if code.strip():
+        src.append(code)
 
-for line in ast:
-    evaluate(line)
+tokens = tokenize("\n".join(src))  # tokenize WHOLE program
+
+ast = []
+while tokens:
+    ast.append(parse(tokens))       # parse one full form at a time
+
+#print(ast)
+for action in ast:
+    evaluate(action)
 
