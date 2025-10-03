@@ -132,7 +132,7 @@ def  evaluate(ast: list): # ast must be a single liner
                         return (value)
                     if token == "scan":
                         value = evaluate(ast[idx + 1])
-                        return evaluate(input(value))
+                        return input(value)
                     if token == "if":
                         cond = evaluate(ast[idx + 1])
                         if cond:
