@@ -1,7 +1,10 @@
-;Testing while loops and incrementations
 (set i 0)
 (while (< i 10)
-    (print i)
+    (set j 0)
+    (print "i is less than 10")
+    (while (< j 5)
+        (print j)
+        (set j (+ j 1))
+    )
     (set i (+ i 1))
 )
-(print "DONE!")
