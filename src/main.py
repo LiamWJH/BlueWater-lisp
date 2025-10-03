@@ -92,8 +92,11 @@ def parse(tokens):
 ast = []
 env = {}
 def  evaluate(ast: list): # ast must be a single liner
-        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", ">", "<", ">=", "<=" ,"==", "!="]
-        
+        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!="]
+        # Put this at the top of evaluate()
+        if isinstance(ast, list):
+            if not ast or not (isinstance(ast[0], str) and ast[0] in KW):
+                return ast  # treat as DATA list, not code
         #print("dbg" + str(ast))
         if type(ast) == list:
             for idx, token in enumerate(ast):
@@ -125,6 +128,23 @@ def  evaluate(ast: list): # ast must be a single liner
                         value = evaluate(ast[idx + 2])
                         env[name] = value
                         return (name,value)
+                    if token == "list":
+                        return [evaluate(x) for x in ast[idx+1:]]
+                    if token == "append":
+                        name = ast[idx + 1]
+                        value = evaluate(ast[idx + 2])
+                        env[name].append(value)
+                    if token == "index":
+                        name = ast[idx + 1]
+                        _idx = evaluate(ast[idx + 2])
+                        change = evaluate(ast[idx + 3])
+                        if change == "delete":
+                            val = env[name].pop()
+                            return val 
+                        else:
+                            env[name][_idx] = change
+                            return (name, idx, change)
+                        
                     if token == "print":
                         value = evaluate(ast[idx + 1])
                         print(value)
