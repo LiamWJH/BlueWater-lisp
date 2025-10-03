@@ -1,11 +1,15 @@
-test_code = """
-(print "test init")
-(while 
-    (< (scan "number") 10)
-    (print "your number is smaller than 10")
-)
-(print "Now not...")
-"""
+import argparse
+argparser = argparse.ArgumentParser()
+argparser.add_argument("FILENAME", help="filename you wish to run")
+args = argparser.parse_args()
+
+USERCODE = ""
+
+with open(args.FILENAME, "r") as f:
+    USERCODE = f.read()
+
+
+
 #Goal write a program that can do that 
 #after that bind it to a vm
 #for now no consideration on string
@@ -73,7 +77,6 @@ def atom(token):
         except ValueError:
             return str(token)
 
-
 def parse(tokens):
     
     token = tokens.pop(0)
@@ -107,9 +110,7 @@ def  evaluate(ast: list): # ast must be a single liner
                     if token == ">":
                         return evaluate(ast[idx + 1]) > evaluate(ast[idx + 2])
                     if token == "<":
-                        a,b=evaluate(ast[idx + 1]),evaluate(ast[idx + 2])
-                        print(a,b)
-                        return a < b
+                        return evaluate(ast[idx + 1]) < evaluate(ast[idx + 2])
                     if token == ">=":
                         return evaluate(ast[idx + 1]) >= evaluate(ast[idx + 2])
                     if token == "<=":
@@ -160,23 +161,21 @@ def  evaluate(ast: list): # ast must be a single liner
                     try:
                         return float(ast)
                     except:
-                        print("sh*t")
+                        print("sh*t" + ast)
                 
 
-# collect code without comments/blank lines
 src = []
-for raw_line in test_code.splitlines():
+for raw_line in USERCODE.splitlines():
     code = raw_line.split(";", 1)[0]
     if code.strip():
         src.append(code)
 
-tokens = tokenize("\n".join(src))  # tokenize WHOLE program
+tokens = tokenize("\n".join(src))
 
 ast = []
 while tokens:
-    ast.append(parse(tokens))       # parse one full form at a time
+    ast.append(parse(tokens))
 
-#print(ast)
 for action in ast:
     evaluate(action)
 
