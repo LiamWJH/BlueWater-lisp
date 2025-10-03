@@ -9,10 +9,9 @@ with open(args.FILENAME, "r") as f:
     USERCODE = f.read()
 
 
-
 #Goal write a program that can do that 
 #after that bind it to a vm
-#for now no consideration on string
+#for now no consideration on string 
 def tokenize(s: str):
     tokens = []
     i, n = 0, len(s)
@@ -92,9 +91,13 @@ def parse(tokens):
         return atom(token)
 ast = []
 env = {}
-
+DEFINEDSCRIPTS = {}
+DEFINEDKW = []
 def  evaluate(ast: list): # ast must be a single liner
         KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", ">", "<", ">=", "<=" ,"==", "!="]
+        global DEFINEDKW
+        global DEFINEDSCRIPTS
+        
         #print("dbg" + str(ast))
         if type(ast) == list:
             for idx, token in enumerate(ast):
@@ -146,6 +149,7 @@ def  evaluate(ast: list): # ast must be a single liner
                         while evaluate(ast[idx + 1]):
                             for line in block:
                                 evaluate(line)
+
         elif type(ast) == int or type(ast) == float:
             return ast
         else:
