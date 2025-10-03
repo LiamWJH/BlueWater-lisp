@@ -91,12 +91,8 @@ def parse(tokens):
         return atom(token)
 ast = []
 env = {}
-DEFINEDSCRIPTS = {}
-DEFINEDKW = []
 def  evaluate(ast: list): # ast must be a single liner
         KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", ">", "<", ">=", "<=" ,"==", "!="]
-        global DEFINEDKW
-        global DEFINEDSCRIPTS
         
         #print("dbg" + str(ast))
         if type(ast) == list:
