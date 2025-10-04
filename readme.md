@@ -12,4 +12,4 @@ We have several goals for this project:
  4. Clean code - Of course we want _clean_ code and _structured_ projects!
 
  ## **btw**
-  - btw feel free to contribute! go see [Contributing](docs/contrinuting.md)
+  - btw feel free to contribute! go see [Contributing](docs/contributing.md)
