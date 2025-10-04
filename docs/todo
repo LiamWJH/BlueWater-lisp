@@ -2,8 +2,8 @@ TODO
 
 1. Make REPL to be able to use
 2. Make function feature
-3. booleans, and, or, not
+3. booleans, and, or, not (Done)
 4. No suck error msg
 5. Yes stdlib -> len map blablah
-6. ARRAYS
+6. ARRAYS(Done)
 7. Define macros?
