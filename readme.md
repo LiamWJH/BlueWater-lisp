@@ -1,25 +1,15 @@
-# BWT - _Lisp btw_
-## Blue WaTer a chaotic take on making a lisp dialect
+# Blue water
+_"A small rapid progressising Lisp in development."_
 
-Not much to say **blue water** is as simple as i said repeatedly in the headers; A lisp dialect that aims to be: 
-1. usable _(To an extent rn)_
-2. chaotic _Yes_
-3. Pure python _Yes_
-4. Easy to read the code  _Not even close_
+## Introduction
+Blue water is a smol cute lisp dialect written in python! Although small we seek growth from it. In case you dont know what lisp is go look (here)[https://en.wikipedia.org/wiki/Lisp_(programming_language)]
 
-If you dont know about the [Lisp](https://en.wikipedia.org/wiki/Lisp_(programming_language)) families they are in short: a familiy of programming language that the code itself is a form of data type.
-To show an easy example of the vibe such is the infamous _"hello world"_ and other programs in lisp dialects
-> (print "Hello world")      ; Print hello world
+## Goals
+We have several goals for this project:
+ 1. Feature progression - Of course we want _rapid_ growth!
+ 2. Good documentation - We also aim for a _quality_ repo!
+ 3. Open contributions - We want people to be able to contribute _actively_!
+ 4. Clean code - Of course we want _clean_ code and _structured_ projects!
 
-> (+ 2 (* 2 4))                   ; Outputs 10
-
-So now we know we can do TWO THINGS you can either go read the *contributing.txt* in the *docs* or just try using it.
-
-## How to use
-For now our *bwt* only supports *file read -> output* form of runnning (for REPL style bwt YOU can contribute for US)
-
-So you can run:
-```git clone "https://github.com/LiamWJH/bwt-lispbtw"``` In C:\ or anywhere
-```cd "bwt-lispbtw"```
-```cd src```
-```python main.py TESTFILENAME```
+ ## **btw**
+  - btw feel free to contribute! go see (Contributing)[docs/contrinuting]
