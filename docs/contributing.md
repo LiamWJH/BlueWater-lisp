@@ -2,6 +2,8 @@ To start do:
 
 1. Cloning repo :D
 
+(Fork the project)
+
 ```git clone https://www.github.com/LiamWJH/Bluewater-lisp```
 
 ```cd "Bluewater-lisp"```
@@ -23,4 +25,4 @@ If you chose to edit the test cases for Bluewater , go to via _/Bluewater_ folde
 If you chose to do as you state then make sure all the content arent wrong or contradicting to our current state and do so!
 
 6. LASTLY
-Lastly after you have succesfully made your changes go make a PR or pull request! Then i will review the code and proceed!
+Lastly after you have succesfully made your changes go make a PR or pull request! Then i will review the code and proceed! (From a fork)
