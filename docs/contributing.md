@@ -1,6 +1,7 @@
 To start do:
 
 1. Cloning repo :D
+
 ```git clone https://www.github.com/LiamWJH/Bluewater-lisp```
 
 ```cd "Bluewater-lisp"```
@@ -10,10 +11,12 @@ Once you finished step 1 you will see several folders like _/docs_, _/Bluewater_
 
 3. IF YOU CHOSE TO EDIT THE **CODE**
 If you chose to edit the code or the python code, go to via _/Bluewater_ folder then you can go to the _/src_ folder to edit the source code!
+
 {**IMPORTANT** Do not try to make the code dysfunctional, always test all the test cases to see if your new code qualifies all of them!}
 
 4. IF YOU CHOSE TO EDIT THE **TEST CASES**
 If you chose to edit the test cases for Bluewater , go to via _/Bluewater_ folder then you can go to the _/tests_ folder to add, edit, delete the test cases!
+
 {**IMPORTANT**  Before making, deleting, editing the test cases PLEASE review the features and code and the basics of Bluewater to make sure they're valid}
 
 5. IF YOU CHOSE TO EDIT THE **readme, todo, contributing, /docs, and other**
