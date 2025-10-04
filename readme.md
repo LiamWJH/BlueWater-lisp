@@ -2,7 +2,7 @@
 _"A small rapid progressising Lisp in development."_
 
 ## Introduction
-Blue water is a smol cute lisp dialect written in python! Although small we seek growth from it. In case you dont know what lisp is go look (here)[https://en.wikipedia.org/wiki/Lisp_(programming_language)]
+Blue water is a smol cute lisp dialect written in python! Although small we seek growth from it. In case you dont know what lisp is go look [here](https://en.wikipedia.org/wiki/Lisp_(programming_language))
 
 ## Goals
 We have several goals for this project:
