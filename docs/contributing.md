@@ -2,6 +2,7 @@ To start do:
 
 1. Cloning repo :D
 ```git clone https://www.github.com/LiamWJH/Bluewater-lisp```
+
 ```cd "Bluewater-lisp"```
 
 2. Choosing :D
