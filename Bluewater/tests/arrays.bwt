@@ -3,4 +3,6 @@
 (append arr "bye")
 (print arr)
 (index arr 0 7)
+(index arr 2 delete)
 (print arr)
+(print (index arr 4 get))
