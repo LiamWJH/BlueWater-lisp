@@ -92,7 +92,7 @@ def parse(tokens):
 ast = []
 env = {}
 def  evaluate(ast: list): # ast must be a single liner
-        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!="]
+        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!=", "true", "false", "&", "|"]
         # Put this at the top of evaluate()
         if isinstance(ast, list):
             if not ast or not (isinstance(ast[0], str) and ast[0] in KW):
@@ -121,7 +121,16 @@ def  evaluate(ast: list): # ast must be a single liner
                         return evaluate(ast[idx + 1]) == evaluate(ast[idx + 2])
                     if token == "!=":
                         return evaluate(ast[idx + 1]) != evaluate(ast[idx + 2])
-                    
+                    if token == "&":
+                        if evaluate(ast[idx + 1]) and evaluate(ast[idx + 2]):
+                            return True
+                        else:
+                            return False
+                    if token == "|":
+                        if evaluate(ast[idx + 1]) or evaluate(ast[idx + 2]):
+                            return True
+                        else:
+                            return False
                     #Functions
                     if token == "set":
                         name = ast[idx + 1]
@@ -155,11 +164,14 @@ def  evaluate(ast: list): # ast must be a single liner
                     if token == "if":
                         cond = evaluate(ast[idx + 1])
                         if cond:
-                            c1 = evaluate(ast[idx + 2])
-                            return c1
+                            #print("cond satisfied: ")
+                            res = None
+                            for act in ast[idx + 2:]:
+                                res = evaluate(act)
+                            return res
                         else:
-                            c2 = evaluate(ast[idx + 3])
-                            return c2
+                            #c2 = evaluate(ast[idx + 3])
+                            return False
                     if token == "while":
                         block = ast[idx+2:len(ast)]
                         while evaluate(ast[idx + 1]):
@@ -176,7 +188,12 @@ def  evaluate(ast: list): # ast must be a single liner
                 return ast[1:-1]
             else:
                 if ast.isalpha():
-                    return env[ast]
+                    if ast == "true":
+                        return True
+                    elif ast == "false":
+                        return False
+                    else:
+                        return env[ast]
                 else:
                     try:
                         return float(ast)
