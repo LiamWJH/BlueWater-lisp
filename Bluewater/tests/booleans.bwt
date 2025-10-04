@@ -1,0 +1,5 @@
+(print true)
+(print false)
+(print (+ true true))
+(print (+ false false))
+(print (+ true false))

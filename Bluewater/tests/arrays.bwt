@@ -1,0 +1,6 @@
+(set arr (list 1 2 3 4 5 "hello"))
+(print arr)
+(append arr "bye")
+(print arr)
+(index arr 0 7)
+(print arr)

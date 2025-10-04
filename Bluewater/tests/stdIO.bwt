@@ -1,0 +1,2 @@
+(print "Test for standard InOut...")        ;should print what it says
+(scan "Ok?")                                          ; should ask Ok?
