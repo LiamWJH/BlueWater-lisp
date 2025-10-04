@@ -89,6 +89,7 @@ def parse(tokens):
             
     else:
         return atom(token)
+
 ast = []
 env = {}
 def  evaluate(ast: list): # ast must be a single liner
@@ -146,11 +147,16 @@ def  evaluate(ast: list): # ast must be a single liner
                     if token == "index":
                         name = ast[idx + 1]
                         _idx = evaluate(ast[idx + 2])
-                        change = evaluate(ast[idx + 3])
+                        change = ast[idx + 3]
                         if change == "delete":
-                            val = env[name].pop()
+                            val = env[name][_idx]
+                            del env[name][_idx]
                             return val 
+                        elif change == "get":
+                            val = env[name][_idx]
+                            return val
                         else:
+                            change = evaluate(change)
                             env[name][_idx] = change
                             return (name, idx, change)
                         
