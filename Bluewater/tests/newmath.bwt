@@ -1,0 +1,4 @@
+(print (mod 10 3))
+(print (pow 2 3)) 
+(print (sqrt 16))
+(print (abs -5))
