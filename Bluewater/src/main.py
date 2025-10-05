@@ -1,3 +1,5 @@
+import math
+
 import argparse
 argparser = argparse.ArgumentParser()
 argparser.add_argument("FILENAME", help="filename you wish to run")
@@ -93,7 +95,7 @@ def parse(tokens):
 ast = []
 env = {}
 def  evaluate(ast: list): # ast must be a single liner
-        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!=", "true", "false", "&", "|"]
+        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!=", "true", "false", "&", "|", "mod", "pow", "sqrt", "abs", "concat", "strlen", "substr", "len", "reverse"]
         # Put this at the top of evaluate()
         if isinstance(ast, list):
             if not ast or not (isinstance(ast[0], str) and ast[0] in KW):
@@ -132,6 +134,15 @@ def  evaluate(ast: list): # ast must be a single liner
                             return True
                         else:
                             return False
+                    if token == "mod":
+                        return evaluate(ast[idx + 1]) % evaluate(ast[idx + 2])
+                    if token == "pow":
+                        return evaluate(ast[idx + 1]) ** evaluate(ast[idx + 2])
+                    if token == "sqrt":
+                        return math.sqrt(evaluate(ast[idx + 1]))
+                    if token == "abs":
+                        return abs(evaluate(ast[idx + 1]))
+
                     #Functions
                     if token == "set":
                         name = ast[idx + 1]
@@ -183,6 +194,20 @@ def  evaluate(ast: list): # ast must be a single liner
                         while evaluate(ast[idx + 1]):
                             for line in block:
                                 evaluate(line)
+                    if token == "concat":
+                        return str(evaluate(ast[idx + 1])) + str(evaluate(ast[idx + 2]))
+                    if token == "strlen":
+                        return len(str(evaluate(ast[idx + 1])))
+                    if token == "substr":
+                        string = str(evaluate(ast[idx + 1]))
+                        start = evaluate(ast[idx + 2])
+                        end = evaluate(ast[idx + 3])
+                        return string[start:end]
+                    if token == "len":
+                        return len(evaluate(ast[idx + 1]))
+                    if token == "reverse":
+                        lst = evaluate(ast[idx + 1])
+                        return lst[::-1]
 
         elif type(ast) == int or type(ast) == float:
             return ast
