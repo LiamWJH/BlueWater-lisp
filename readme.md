@@ -11,16 +11,16 @@ Here's some of the stuff you can do with BlueWater:
 **Math Operations:**
 - Basic arithmetic: `+`, `-`, `*`, `/`
 - Comparisons: `>`, `<`, `>=`, `<=`, `==`, `!=`
-- Advanced math: `mod`, `pow`, `sqrt`, `abs`
+- Advanced math: `mod`, `pow`, `sqrt`, `abs` **!QUESTIONABLE!**
 
 **Working with Data:**
 - Variables: `set` to store values
 - Lists: `list` to make lists, `append` to add stuff
-- List operations: `len`, `reverse`, `index` to manage elements
+- List operations: `len`, `reverse`, `index` to manage elements **!QUESTIONABLE!**
 
 **Strings & Text:**
 - String creation with quotes
-- String operations: `concat`, `strlen`, `substr`
+- String operations: `concat`, `strlen`, `substr` **!BUGGED!**
 
 **Control Flow:**
 - Conditionals: `if` statements
