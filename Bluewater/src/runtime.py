@@ -1,3 +1,5 @@
+from errors import Sytaxerror, Extensionerror, Miscerror
+
 ast = []
 env = {}
 def  evaluate(ast: list):

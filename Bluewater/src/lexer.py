@@ -1,3 +1,5 @@
+from errors import Sytaxerror, Extensionerror, Miscerror
+
 def tokenize(s: str):
     tokens = []
     i, n = 0, len(s)

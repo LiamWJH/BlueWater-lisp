@@ -1,3 +1,5 @@
+from errors import Sytaxerror, Extensionerror, Miscerror
+
 def atom(token):
     try:
         return int(token)
