@@ -1,3 +1,0 @@
-(print (concat "Hello " "World"))
-(print (strlen "test"))
-(print (substr "hello world" 0 5))
