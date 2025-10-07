@@ -2,7 +2,7 @@ from cli import getcliargs
 from lexer import tokenize
 from parser import parse
 from runtime import evaluate
-from errors import Sytaxerror, Extensionerror, Miscerror
+from errors import Sytaxerror, Extensionerror, Miscerror, terminate
 
 USERCODE = getcliargs()
 

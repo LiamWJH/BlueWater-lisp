@@ -1,1 +1,1 @@
-from errors import Sytaxerror, Extensionerror, Miscerror
+from errors import Sytaxerror, Extensionerror, Miscerror, terminate
