@@ -2,7 +2,6 @@ from cli import getcliargs
 from lexer import tokenize
 from parser import parse
 from runtime import evaluate
-from syntaxchecker import check
 
 USERCODE = getcliargs()
 
