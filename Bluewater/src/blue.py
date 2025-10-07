@@ -2,6 +2,7 @@ from cli import getcliargs
 from lexer import tokenize
 from parser import parse
 from runtime import evaluate
+from syntaxchecker import check
 
 USERCODE = getcliargs()
 
@@ -13,9 +14,9 @@ for raw_line in USERCODE.splitlines():
 
 tokens = tokenize("\n".join(src))
 
-ast = []
+wholetoken = []
 while tokens:
-    ast.append(parse(tokens))
+    wholetoken.append(parse(tokens))
 
-for action in ast:
+for action in wholetoken:
     evaluate(action)
