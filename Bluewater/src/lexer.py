@@ -1,4 +1,4 @@
-from errors import Sytaxerror, Extensionerror, Miscerror, terminate
+from errors import Syntaxerror, Extensionerror, Miscerror, terminate
 
 def tokenize(s: str):
     tokens = []
@@ -17,31 +17,43 @@ def tokenize(s: str):
         if c == '"':
             i += 1
             buf = []
+            finished = False
             while i < n:
                 if s[i] == '\\' and i + 1 < n:
                     buf.append(s[i + 1])
                     i += 2
                 elif s[i] == '"':
                     i += 1
+                    finished = True
                     break
                 else:
                     buf.append(s[i])
                     i += 1
-            tokens.append('"' + ''.join(buf) + '"')
+            if finished:
+                tokens.append('"' + ''.join(buf) + '"')
+            else:
+                tokens.append('"' + ''.join(buf))
             continue
 
         if c == "'":
             i += 1
             buf = []
-            while i < n and s[i] != "'":
+            finished = False
+            while i < n:
                 if s[i] == '\\' and i + 1 < n:
                     buf.append(s[i + 1])
                     i += 2
+                elif s[i] == "'":
+                    i += 1
+                    finished = True
+                    break
                 else:
-                    buf.append(s[i]); i += 1
-            if i < n and s[i] == "'":
-                i += 1
-            tokens.append("'" + ''.join(buf) + "'")
+                    buf.append(s[i])
+                    i += 1
+            if finished:
+                tokens.append("'" + "".join(buf) + "'")
+            else:
+                tokens.append("'" + "".join(buf))
             continue
 
         j = i

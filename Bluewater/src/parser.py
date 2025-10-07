@@ -1,4 +1,4 @@
-from errors import Sytaxerror, Extensionerror, Miscerror, terminate
+from errors import Syntaxerror, Extensionerror, Miscerror, terminate
 
 def atom(token):
     try:
@@ -19,6 +19,5 @@ def parse(tokens):
             L.append(parse(tokens))
         tokens.pop(0)
         return L
-            
     else:
         return atom(token)

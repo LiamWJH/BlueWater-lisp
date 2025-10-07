@@ -2,8 +2,8 @@ from cli import getcliargs
 from lexer import tokenize
 from parser import parse
 from runtime import evaluate
-from errors import Sytaxerror, Extensionerror, Miscerror, terminate
-
+from errors import Syntaxerror, Extensionerror, Miscerror, terminate
+from checker import check
 USERCODE = getcliargs()
 
 src = []
@@ -13,6 +13,7 @@ for raw_line in USERCODE.splitlines():
         src.append(code)
 
 tokens = tokenize("\n".join(src))
+check(tokens)
 
 wholetoken = []
 while tokens:

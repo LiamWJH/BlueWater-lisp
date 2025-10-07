@@ -1,5 +1,5 @@
 import argparse
-from errors import Sytaxerror, Extensionerror, Miscerror, terminate
+from errors import Syntaxerror, Extensionerror, Miscerror, terminate
 
 def getcliargs() -> str:
     argparser = argparse.ArgumentParser()
@@ -9,7 +9,7 @@ def getcliargs() -> str:
     with open(args.FILENAME, "r") as f:
         result = f.read()
     
-    if not result.endswith(".bwt"):
+    if not args.FILENAME.endswith(".bwt"):
         print(Extensionerror(result, "Change the file extension"))
         terminate()
     return result

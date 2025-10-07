@@ -1,9 +1,10 @@
-from errors import Sytaxerror, Extensionerror, Miscerror, terminate
+from errors import Syntaxerror, Extensionerror, Miscerror, terminate
 
 ast = []
 env = {}
+KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!=", "true", "false", "&", "|"]
 def  evaluate(ast: list):
-        KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!=", "true", "false", "&", "|"]
+        global KW
         if isinstance(ast, list):
             if not ast or not (isinstance(ast[0], str) and ast[0] in KW):
                 return ast
