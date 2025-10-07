@@ -1,104 +1,10 @@
-import argparse
-argparser = argparse.ArgumentParser()
-argparser.add_argument("FILENAME", help="filename you wish to run")
-args = argparser.parse_args()
-
-USERCODE = ""
-
-with open(args.FILENAME, "r") as f:
-    USERCODE = f.read()
-
-
-#Goal write a program that can do that 
-#after that bind it to a vm
-#for now no consideration on string 
-def tokenize(s: str):
-    tokens = []
-    i, n = 0, len(s)
-    while i < n:
-        c = s[i]
-        if c.isspace():
-            i += 1
-            continue
-
-        if c in '()':
-            tokens.append(c)
-            i += 1
-            continue
-
-        if c == '"':
-            i += 1
-            buf = []
-            while i < n:
-                if s[i] == '\\' and i + 1 < n:
-                    # keep escapes like \" or \\ intact
-                    buf.append(s[i + 1])
-                    i += 2
-                elif s[i] == '"':
-                    i += 1
-                    break
-                else:
-                    buf.append(s[i])
-                    i += 1
-            tokens.append('"' + ''.join(buf) + '"')
-            continue
-
-        # single-quoted strings (optional)
-        if c == "'":
-            i += 1
-            buf = []
-            while i < n and s[i] != "'":
-                if s[i] == '\\' and i + 1 < n:
-                    buf.append(s[i + 1])
-                    i += 2
-                else:
-                    buf.append(s[i]); i += 1
-            if i < n and s[i] == "'":
-                i += 1
-            tokens.append("'" + ''.join(buf) + "'")
-            continue
-
-        # symbols / numbers
-        j = i
-        while j < n and (not s[j].isspace()) and s[j] not in '()':
-            j += 1
-        tokens.append(s[i:j])
-        i = j
-
-    return tokens
-
-def atom(token):
-    try:
-        return int(token)
-    except ValueError:
-        try:
-            return float(token)
-        except ValueError:
-            return str(token)
-
-def parse(tokens):
-    
-    token = tokens.pop(0)
-    if token == '(':         # start new list
-        L = []
-
-        while tokens[0] != ')':
-            L.append(parse(tokens))
-        tokens.pop(0)        # discard ')'
-        return L
-            
-    else:
-        return atom(token)
-
 ast = []
 env = {}
-def  evaluate(ast: list): # ast must be a single liner
+def  evaluate(ast: list):
         KW = ["*", "/", "-",  "+", "set", "print", "scan", "if", "while", "list", "append", "index", ">", "<", ">=", "<=" ,"==", "!=", "true", "false", "&", "|"]
-        # Put this at the top of evaluate()
         if isinstance(ast, list):
             if not ast or not (isinstance(ast[0], str) and ast[0] in KW):
-                return ast  # treat as DATA list, not code
-        #print("dbg" + str(ast))
+                return ast
         if type(ast) == list:
             for idx, token in enumerate(ast):
                 if token in KW:
@@ -132,7 +38,6 @@ def  evaluate(ast: list): # ast must be a single liner
                             return True
                         else:
                             return False
-                    #Functions
                     if token == "set":
                         name = ast[idx + 1]
                         value = evaluate(ast[idx + 2])
@@ -170,13 +75,11 @@ def  evaluate(ast: list): # ast must be a single liner
                     if token == "if":
                         cond = evaluate(ast[idx + 1])
                         if cond:
-                            #print("cond satisfied: ")
                             res = None
                             for act in ast[idx + 2:]:
                                 res = evaluate(act)
                             return res
                         else:
-                            #c2 = evaluate(ast[idx + 3])
                             return False
                     if token == "while":
                         block = ast[idx+2:len(ast)]
@@ -205,20 +108,3 @@ def  evaluate(ast: list): # ast must be a single liner
                         return float(ast)
                     except:
                         print("sh*t" + ast)
-                
-
-src = []
-for raw_line in USERCODE.splitlines():
-    code = raw_line.split(";", 1)[0]
-    if code.strip():
-        src.append(code)
-
-tokens = tokenize("\n".join(src))
-
-ast = []
-while tokens:
-    ast.append(parse(tokens))
-
-for action in ast:
-    evaluate(action)
-
