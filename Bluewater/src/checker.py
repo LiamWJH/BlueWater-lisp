@@ -1,5 +1,5 @@
 from errors import Syntaxerror, Miscerror, terminate
-from runtime import KW
+
 
 def check(tokens: list) -> bool:
     print("DBG PRINT", tokens)
@@ -17,15 +17,20 @@ def check(tokens: list) -> bool:
             j=i
             token = tokens[j]
             while j<n:
+                token = tokens[j]
+                
                 if parentheses_depth < 0:
+                    print("!!!!!!!!!!!!!!!!!")
+                    breakpoint()
                     print(Syntaxerror("Unmatched parentheses"))
                     terminate(errorsource)
-                token = tokens[j]
+                
                 if token in "()":
                     if token == "(":
                         parentheses_depth += 1
                     else:
                         parentheses_depth -= 1
+                print(token,j,parentheses_depth)
                 #print(parentheses_depth, token)
                 j+=1
 
