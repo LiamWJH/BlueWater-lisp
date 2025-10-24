@@ -3,7 +3,7 @@
 
 ---
 
-##⚙️ Introduction
+## ⚙️ Introduction
 Blue Water is a small and cute Lisp dialect written in python! 
 Albeit still in its early stages, we aim to grow it with passion.
 
@@ -11,7 +11,7 @@ If you’re new to Lisp, check out [this quick intro](https://en.wikipedia.org/w
 
 ---
 
-##🧩 Features
+## 🧩 Features
 Here are some of the things **Blue Water** currently does:
 
 ### 🧮 Math Operations:**
