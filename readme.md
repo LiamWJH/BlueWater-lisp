@@ -18,16 +18,16 @@ Here are some of the things **Blue Water** currently does:
 ### 🧮 Math Operations:
 - Basic arithmetic: `+`, `-`, `*`, `/`
 - Comparisons: `>`, `<`, `>=`, `<=`, `==`, `!=`
-- Advanced math: `mod`, `pow`, `sqrt`, `abs`  **!QUESTIONABLE!**
+- Advanced math: `mod`, `pow`, `sqrt`, `abs`  *(experimental)*
 
 ### 📦 Working with Data:
 - Variables: `set` to store values
 - Lists: `list` to make lists, `append` to add elements
-- List operations: `len`, `reverse`, `index` to manage elements  **!QUESTIONABLE!**
+- List operations: `len`, `reverse`, `index` to manage elements  *(experimental)*
 
 ### 🔤 Strings & Text:
 - String creation with quotes
-- String operations: `concat`, `strlen`, `substr`  **!BUGGED!**
+- String operations: `concat`, `strlen`, `substr`  *(currently buggy)*
 
 ### 🔁 Control Flow:
 - Conditionals: `if` statements
