@@ -4,7 +4,7 @@
 ---
 
 ## ⚙️ Introduction
-Blue Water is a small and cute Lisp dialect written in python! 
+Blue Water is a small and cute Lisp dialect written in python!  
 Albeit still in its early stages, we aim to grow it with passion.
 
 If you’re new to Lisp, check out [this quick intro](https://en.wikipedia.org/wiki/Lisp_(programming_language)).
