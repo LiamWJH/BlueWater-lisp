@@ -1,42 +1,55 @@
-# Blue water
-_"A small rapid progressising Lisp in development."_
+# Blue Water
+***"A small but rapidly progressing Lisp dialect under development."***
 
+---
 
-## Introduction
-Blue water is a smol cute lisp dialect written in python! Although small we seek growth from it. In case you dont know what lisp is go look [here](https://en.wikipedia.org/wiki/Lisp_(programming_language))
+##⚙️ Introduction
+Blue Water is a small and cute Lisp dialect written in python! 
+Albeit still in its early stages, we aim to grow it with passion.
 
-## What Can It Do?
-Here's some of the stuff you can do with BlueWater:
+If you’re new to Lisp, check out [this quick intro](https://en.wikipedia.org/wiki/Lisp_(programming_language)).
 
-**Math Operations:**
+---
+
+##🧩 Features
+Here are some of the things **Blue Water** currently does:
+
+### 🧮 Math Operations:**
 - Basic arithmetic: `+`, `-`, `*`, `/`
 - Comparisons: `>`, `<`, `>=`, `<=`, `==`, `!=`
-- Advanced math: `mod`, `pow`, `sqrt`, `abs` **!QUESTIONABLE!**
+- Advanced math: `mod`, `pow`, `sqrt`, `abs`  **!QUESTIONABLE!**
 
-**Working with Data:**
+### 📦 Working with Data:**
 - Variables: `set` to store values
-- Lists: `list` to make lists, `append` to add stuff
-- List operations: `len`, `reverse`, `index` to manage elements **!QUESTIONABLE!**
+- Lists: `list` to make lists, `append` to add elements
+- List operations: `len`, `reverse`, `index` to manage elements  **!QUESTIONABLE!**
 
-**Strings & Text:**
+### 🔤 Strings & Text:**
 - String creation with quotes
-- String operations: `concat`, `strlen`, `substr` **!BUGGED!**
+- String operations: `concat`, `strlen`, `substr`  **!BUGGED!**
 
-**Control Flow:**
+### 🔁 Control Flow:**
 - Conditionals: `if` statements
 - Loops: `while` loops
 - Logic: `&` (and), `|` (or), `true`, `false`
 
-**Input/Output:**
+### 🖨️ Input/Output:
 - Print to console: `print`
 - Read input: `scan`
 
-## Goals
-We have several goals for this project:
- 1. Feature progression - Of course we want _rapid_ growth!
- 2. Good documentation - We also aim for a _quality_ repo!
- 3. Open contributions - We want people to be able to contribute _actively_!
- 4. Clean code - Of course we want _clean_ code and _structured_ projects!
+---
 
- ## **btw**
-  - btw feel free to contribute! go see [Contributing](docs/contributing.md)
+## 🎯 Goals
+We’re aiming for:
+1. **Feature progression** — rapid growth and iteration  
+2. **Good documentation** — clear, complete, and beginner-friendly  
+3. **Open contributions** — an inviting community for all contributors  
+4. **Clean code** — readable and structured
+
+---
+
+ ## 🤝 Contributing
+Interested in **Blue Water** and want to help it grow?
+Check out our [contributing guide](docs/contributing.md) to get started!
+
+---
