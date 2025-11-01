@@ -11,7 +11,7 @@ def evaluate(ast):
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
         "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn"
     ]
-
+    #print(ast,"!")
     # ---- Base case: AST is a list ----
     if isinstance(ast, list):
         # Return literal list if it's not a keyword expression
@@ -22,13 +22,12 @@ def evaluate(ast):
         for idx, token in enumerate(ast):
             if token not in KW:
                 try:
-                    if token in env.keys():
-                        print(token, "is a fn")
-                        pass#run fn logic here later
+                    if token in env:
+                        print(token,"is a function")
                     else:
                         continue
-                except Exception as e:
-                    print(e)
+                except Exception:
+                    continue
                     
             # --- Math Operations ---
             if token == "*":
@@ -155,8 +154,6 @@ def evaluate(ast):
                 fnbody = ast[idx + 3:]
 
                 env[fnname] = [fnvars, fnbody]
-
-
 
     # ---- Base case: literals ----
     elif isinstance(ast, (int, float)):
