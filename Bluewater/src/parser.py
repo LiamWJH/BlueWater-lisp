@@ -10,8 +10,9 @@ def atom(token):
             return str(token)
 
 def parse(tokens):
-    
+    #print(tokens)
     token = tokens.pop(0)
+
     if token == '(':
         L = []
 

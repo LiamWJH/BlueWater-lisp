@@ -4,11 +4,12 @@ import math
 env = {}
 
 def evaluate(ast):
+    global env
     KW = [
-        "*", "/", "-", "+", "set", "print", "scan", "if", "while",
+        "*", "/", "-", "+", "let", "print", "scan", "if", "while",
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
-        "len", "reverse", "concat", "strlen", "substr"
+        "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn"
     ]
 
     # ---- Base case: AST is a list ----
@@ -20,8 +21,15 @@ def evaluate(ast):
         # Evaluate each operation
         for idx, token in enumerate(ast):
             if token not in KW:
-                continue
-
+                try:
+                    if token in env.keys():
+                        print(token, "is a fn")
+                        pass#run fn logic here later
+                    else:
+                        continue
+                except Exception as e:
+                    print(e)
+                    
             # --- Math Operations ---
             if token == "*":
                 return evaluate(ast[idx + 1]) * evaluate(ast[idx + 2])
@@ -61,7 +69,7 @@ def evaluate(ast):
                 return bool(evaluate(ast[idx + 1]) or evaluate(ast[idx + 2]))
 
             # --- Variables ---
-            if token == "set":
+            if token == "let":
                 name = ast[idx + 1]
                 value = evaluate(ast[idx + 2])
                 env[name] = value
@@ -138,6 +146,17 @@ def evaluate(ast):
                     for line in body:
                         evaluate(line)
                 return None
+
+            # --- functions ---
+
+            if token == "fn": #fn define
+                fnname = ast[idx + 1]
+                fnvars = ast[idx + 2].split("|")# the format wil be like fn sayhi x|y|z code
+                fnbody = ast[idx + 3:]
+
+                env[fnname] = [fnvars, fnbody]
+
+
 
     # ---- Base case: literals ----
     elif isinstance(ast, (int, float)):
