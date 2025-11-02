@@ -16,5 +16,7 @@ wholetoken = []
 while tokens:
     wholetoken.append(parse(tokens))
 
+#print(wholetoken)
+#print(wholetoken, "\n")
 for action in wholetoken:
     evaluate(action)

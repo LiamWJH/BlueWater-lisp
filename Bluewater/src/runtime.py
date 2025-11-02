@@ -7,6 +7,7 @@ def evaluate(ast, env={}):
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
         "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn", "call"
     ]
+    
     #print(ast,"!")
     # ---- Base case: AST is a list ----
     if isinstance(ast, list):
@@ -149,7 +150,10 @@ def evaluate(ast, env={}):
                 fnname = ast[idx + 1]
                 fnvars = ast[idx + 2:]
 
-                return evaluate(env[fnname][1], dict(zip(env[fnname][0], fnvars)))
+                #print(dict(zip(env[fnname][0], fnvars)))
+                localenv = env | dict(zip(env[fnname][0], fnvars))
+                print(localenv)
+                return evaluate(env[fnname][1], localenv)
 
     # ---- Base case: literals ----
     elif isinstance(ast, (int, float)):
@@ -165,6 +169,7 @@ def evaluate(ast, env={}):
             return ast[1:-1]
 
         # --- Variables & booleans ---
+        #print(env, ast)
         if ast in env:
             return env[ast]
         if ast == "true":
@@ -176,7 +181,7 @@ def evaluate(ast, env={}):
         try:
             return float(ast)
         except:
-            print(f"Runtime error: invalid token '{ast}'")
+            print(f"Runtime error: invalid token '{ast}' env: {env}")
             return None
 
     else:
