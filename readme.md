@@ -1,10 +1,10 @@
 # Blue Water
-***"A small but rapidly progressing Lisp dialect under development."***
+***"A minimal Lisp dialect in Python."***
 
 ---
 
 ## ⚙️ Introduction
-Blue Water is a small and cute Lisp dialect written in python!  
+Blue Water is a small Lisp dialect written in python!  
 
 Albeit still in its early stages, we aim to grow it with passion.
 
@@ -21,9 +21,9 @@ Here are some of the things **Blue Water** currently does:
 - Advanced math: `mod`, `pow`, `sqrt`, `abs`  *(experimental)*
 
 ### 📦 Working with Data:
-- Variables: `set` to store values
+- Variables: `let` to store values
 - Lists: `list` to make lists, `append` to add elements
-- List operations: `len`, `reverse`, `index` to manage elements  *(experimental)*
+- List operations: `len`, `reverse`, `index` to manage elements 
 
 ### 🔤 Strings & Text:
 - String creation with quotes
@@ -37,6 +37,11 @@ Here are some of the things **Blue Water** currently does:
 ### 🖨️ Input/Output:
 - Print to console: `print`
 - Read input: `scan`
+
+###  👨‍💻 User defined functions:
+- Define function: `fn`
+- Set passed in arguments: `argone|argtwo|argthree`
+- Call functions: `call`: call a user defined function
 
 ---
 
