@@ -14,5 +14,5 @@ runtime.py -> evaluate()
 lexer.py -> tokenize()
 parser.py -> parse(), atom()
 cli.py -> cli part
-bluewater.py -> gets all these together and RUN BAM BAM BAMMMM
+ordinta.py -> gets all these together and RUN BAM BAM BAMMMM
 errors.py -> contains all the error classes so we can import and do raise blaerror("msgmsg")

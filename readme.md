@@ -1,19 +1,19 @@
-# Blue Water
+# Ordinta!
 ***"A minimal Lisp dialect in Python."***
 
 ---
 
 ## ⚙️ Introduction
-Blue Water is a small Lisp dialect written in python!  
+Ordinta is a small Lisp dialect written in python!  
 
-Albeit still in its early stages, we aim to grow it with passion.
+Albeit in its middle stages, we aim to grow it with passion.
 
 If you’re new to Lisp, check out this [quick intro](https://en.wikipedia.org/wiki/Lisp_(programming_language)).
 
 ---
 
 ## 🧩 Features
-Here are some of the things **Blue Water** currently does:
+Here are some of the things **Ordinta** currently has to offer!:
 
 ### 🧮 Math Operations:
 - Basic arithmetic: `+`, `-`, `*`, `/`
@@ -55,7 +55,7 @@ We’re aiming for:
 ---
 
  ## 🤝 Contributing
-Interested in **Blue Water** and want to help it grow?
+Interested in **Ordinta** and want to help it grow?
 Check out our [contributing guide](docs/contributing.md) to get started!
 
 ---
