@@ -1,0 +1,13 @@
+(fn calc x|y|z
+    (print (* (+ x y) z))
+    (print (* (+ x z) y))
+)
+
+(fn sayhi name|msg
+    (print "hi")
+    (print name)
+    (print msg)
+)
+
+(call calc 1 2 3)
+(call sayhi "liam" "ur stoobid")
