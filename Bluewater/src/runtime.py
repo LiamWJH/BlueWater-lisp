@@ -7,75 +7,76 @@ def evaluate(ast, env={}):
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
         "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn", "call"
     ]
-    
+
+    E = lambda x: evaluate(x, env)
     #print(ast,"!")
     # ---- Base case: AST is a list ----
     if isinstance(ast, list):
         # Return literal list if it's not a keyword expression
         if not ast or not (isinstance(ast[0], str) and ast[0] in KW):
-            return [evaluate(x) for x in ast]
+            return [E(x) for x in ast]
 
-        # Evaluate each operation
+        # E each operation
         for idx, token in enumerate(ast):
             if token not in KW:
                 continue
                     
             # --- Math Operations ---
             if token == "*":
-                return evaluate(ast[idx + 1]) * evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) * E(ast[idx + 2])
             if token == "/":
-                return evaluate(ast[idx + 1]) / evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) / E(ast[idx + 2])
             if token == "-":
-                return evaluate(ast[idx + 1]) - evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) - E(ast[idx + 2])
             if token == "+":
-                return evaluate(ast[idx + 1]) + evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) + E(ast[idx + 2])
             if token == "mod":
-                return evaluate(ast[idx + 1]) % evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) % E(ast[idx + 2])
             if token == "pow":
-                return math.pow(evaluate(ast[idx + 1]), evaluate(ast[idx + 2]))
+                return math.pow(E(ast[idx + 1]), E(ast[idx + 2]))
             if token == "sqrt":
-                return math.sqrt(evaluate(ast[idx + 1]))
+                return math.sqrt(E(ast[idx + 1]))
             if token == "abs":
-                return abs(evaluate(ast[idx + 1]))
+                return abs(E(ast[idx + 1]))
 
             # --- Comparison ---
             if token == ">":
-                return evaluate(ast[idx + 1]) > evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) > E(ast[idx + 2])
             if token == "<":
-                return evaluate(ast[idx + 1]) < evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) < E(ast[idx + 2])
             if token == ">=":
-                return evaluate(ast[idx + 1]) >= evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) >= E(ast[idx + 2])
             if token == "<=":
-                return evaluate(ast[idx + 1]) <= evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) <= E(ast[idx + 2])
             if token == "==":
-                return evaluate(ast[idx + 1]) == evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) == E(ast[idx + 2])
             if token == "!=":
-                return evaluate(ast[idx + 1]) != evaluate(ast[idx + 2])
+                return E(ast[idx + 1]) != E(ast[idx + 2])
 
             # --- Logic ---
             if token == "&":
-                return bool(evaluate(ast[idx + 1]) and evaluate(ast[idx + 2]))
+                return bool(E(ast[idx + 1]) and E(ast[idx + 2]))
             if token == "|":
-                return bool(evaluate(ast[idx + 1]) or evaluate(ast[idx + 2]))
+                return bool(E(ast[idx + 1]) or E(ast[idx + 2]))
 
             # --- Variables ---
             if token == "let":
                 name = ast[idx + 1]
-                value = evaluate(ast[idx + 2])
+                value = E(ast[idx + 2])
                 env[name] = value
                 return (name, value)
 
             # --- Lists ---
             if token == "list":
-                return [evaluate(x) for x in ast[idx + 1:]]
+                return [E(x) for x in ast[idx + 1:]]
             if token == "append":
                 name = ast[idx + 1]
-                value = evaluate(ast[idx + 2])
+                value = E(ast[idx + 2])
                 env[name].append(value)
                 return env[name]
             if token == "index":
                 name = ast[idx + 1]
-                index = evaluate(ast[idx + 2])
+                index = E(ast[idx + 2])
                 action = ast[idx + 3]
 
                 if action == "delete":
@@ -85,7 +86,7 @@ def evaluate(ast, env={}):
                 elif action == "get":
                     return env[name][index]
                 else:
-                    val = evaluate(action)
+                    val = E(action)
                     env[name][index] = val
                     return (name, index, val)
             if token == "len":
@@ -98,43 +99,43 @@ def evaluate(ast, env={}):
 
             # --- String operations ---
             if token == "concat":
-                s1 = evaluate(ast[idx + 1])
-                s2 = evaluate(ast[idx + 2])
+                s1 = E(ast[idx + 1])
+                s2 = E(ast[idx + 2])
                 return str(s1) + str(s2)
             if token == "strlen":
-                s = evaluate(ast[idx + 1])
+                s = E(ast[idx + 1])
                 return len(str(s))
             if token == "substr":
-                s = str(evaluate(ast[idx + 1]))
-                start = int(evaluate(ast[idx + 2]))
-                end = int(evaluate(ast[idx + 3]))
+                s = str(E(ast[idx + 1]))
+                start = int(E(ast[idx + 2]))
+                end = int(E(ast[idx + 3]))
                 return s[start:end]
 
             # --- I/O ---
             if token == "print":
-                value = evaluate(ast[idx + 1])
+                value = E(ast[idx + 1])
                 print(value)
                 return value
             if token == "scan":
-                prompt = evaluate(ast[idx + 1])
+                prompt = E(ast[idx + 1])
                 return input(prompt)
 
             # --- Control Flow ---
             if token == "if":
-                condition = evaluate(ast[idx + 1])
+                condition = E(ast[idx + 1])
                 if condition:
                     result = None
                     for act in ast[idx + 2:]:
-                        result = evaluate(act)
+                        result = E(act)
                     return result
                 return False
 
             if token == "while":
                 condition = ast[idx + 1]
                 body = ast[idx + 2:]
-                while evaluate(condition):
+                while E(condition):
                     for line in body:
-                        evaluate(line)
+                        E(line)
                 return None
 
             # --- functions ---
@@ -146,14 +147,18 @@ def evaluate(ast, env={}):
 
                 env[fnname] = [fnvars, fnbody]
 
-            if token == "call": #fn call
+            if token == "call":  # fn call
                 fnname = ast[idx + 1]
-                fnvars = ast[idx + 2:]
+                passedinargs = ast[idx + 2:]
 
-                #print(dict(zip(env[fnname][0], fnvars)))
-                localenv = env | dict(zip(env[fnname][0], fnvars))
-                print(localenv)
-                return evaluate(env[fnname][1], localenv)
+                params, body = env[fnname] # fnname index should contain stuff like [x,y,z],[["print", ["+", 1, 2]]]
+                args = [E(a) for a in passedinargs]
+
+                localenv = env | dict(zip(params, args))
+                result = None
+                for expr in body:
+                    result = evaluate(expr, localenv)
+                return result
 
     # ---- Base case: literals ----
     elif isinstance(ast, (int, float)):
@@ -181,7 +186,7 @@ def evaluate(ast, env={}):
         try:
             return float(ast)
         except:
-            print(f"Runtime error: invalid token '{ast}' env: {env}")
+            print(f"Runtime error: invalid token '{ast}'")
             return None
 
     else:
