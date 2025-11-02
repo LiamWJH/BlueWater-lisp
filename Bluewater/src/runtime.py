@@ -1,15 +1,11 @@
 import math
 
-# Global environment (stores variables)
-env = {}
-
-def evaluate(ast):
-    global env
+def evaluate(ast, env={}):
     KW = [
         "*", "/", "-", "+", "let", "print", "scan", "if", "while",
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
-        "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn"
+        "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn", "call"
     ]
     #print(ast,"!")
     # ---- Base case: AST is a list ----
@@ -21,13 +17,7 @@ def evaluate(ast):
         # Evaluate each operation
         for idx, token in enumerate(ast):
             if token not in KW:
-                try:
-                    if token in env:
-                        print(token,"is a function")
-                    else:
-                        continue
-                except Exception:
-                    continue
+                continue
                     
             # --- Math Operations ---
             if token == "*":
@@ -154,6 +144,12 @@ def evaluate(ast):
                 fnbody = ast[idx + 3:]
 
                 env[fnname] = [fnvars, fnbody]
+
+            if token == "call": #fn call
+                fnname = ast[idx + 1]
+                fnvars = ast[idx + 2:]
+
+                return evaluate(env[fnname][1], dict(zip(env[fnname][0], fnvars)))
 
     # ---- Base case: literals ----
     elif isinstance(ast, (int, float)):

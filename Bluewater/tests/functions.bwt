@@ -9,6 +9,7 @@
     (print msg)
 )
 
-(calc 1 2 3)
+(let x (call calc 1 2 3))
 
 (print 1)
+(print x)

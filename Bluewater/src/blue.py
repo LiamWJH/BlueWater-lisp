@@ -1,4 +1,3 @@
-import time, gc
 from cli import getcliargs
 from lexer import tokenize
 from parser import parse
