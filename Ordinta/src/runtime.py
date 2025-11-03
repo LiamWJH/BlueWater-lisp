@@ -5,7 +5,7 @@ def evaluate(ast, env={}):
         "*", "/", "-", "+", "let", "print", "scan", "if", "while",
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
-        "len", "reverse", "concat", "strlen", "substr", "nativecode", "fn", "call"
+        "len", "reverse", "concat", "strlen", "substr", "fn", "call"
     ]
 
     E = lambda x: evaluate(x, env)

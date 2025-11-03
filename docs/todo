@@ -9,6 +9,7 @@ TODO
 7. Define macros?
 8. Make src files more structured (Done)
 9. Make import from other files be able
+10. Make elif and else statements
 
 runtime.py -> evaluate()
 lexer.py -> tokenize()
