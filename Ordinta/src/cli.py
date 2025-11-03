@@ -9,7 +9,7 @@ def getcliargs() -> str:
     with open(args.FILENAME, "r") as f:
         result = f.read()
     
-    if not args.FILENAME.endswith(".bwt"):
+    if not args.FILENAME.endswith(".ord"):
         print(Extensionerror(result, "Change the file extension"))
         terminate()
     return result

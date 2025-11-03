@@ -2,7 +2,7 @@ import math
 
 def evaluate(ast, env={}):
     KW = [
-        "*", "/", "-", "+", "let", "print", "scan", "if", "while",
+        "*", "/", "-", "+", "let", "print", "scan", "if", "elif", "else", "else","while",
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
         "len", "reverse", "concat", "strlen", "substr", "fn", "call"
@@ -122,13 +122,54 @@ def evaluate(ast, env={}):
 
             # --- Control Flow ---
             if token == "if":
-                condition = E(ast[idx + 1])
-                if condition:
+                cond = E(ast[idx + 1])
+
+                then_body = []
+                elifs = []
+                else_body = None
+
+                i = idx + 2
+                while i < len(ast):
+                    part = ast[i]
+
+                    if isinstance(part, list) and part:
+                        head = part[0]
+                        if head == "elif":
+                            elif_cond = part[1]
+                            elif_body = part[2:]
+                            elifs.append((elif_cond, elif_body))
+                            i += 1
+                            continue
+
+                        if head == "else":
+                            else_body = part[1:]
+                            i += 1
+                            continue
+
+                    then_body.append(part)
+                    i += 1
+
+                if cond:
                     result = None
-                    for act in ast[idx + 2:]:
-                        result = E(act)
+                    for stmt in then_body:
+                        result = E(stmt)
                     return result
+
+                for cond, body in elifs:
+                    if E(cond): #like True
+                        result = None
+                        for line in body:
+                            result = E(line)
+                        return result
+
+                if else_body is not None:
+                    result = None
+                    for stmt in else_body:
+                        result = E(stmt)
+                    return result
+
                 return False
+
 
             if token == "while":
                 condition = ast[idx + 1]
