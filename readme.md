@@ -30,7 +30,7 @@ Here are some of the things **Ordinta** currently has to offer!:
 - String operations: `concat`, `strlen`, `substr`  *(currently buggy)*
 
 ### 🔁 Control Flow:
-- Conditionals: `if` statements
+- Conditionals: `if`, `elif`, `else` (Please look in the docs for it is quite different here...)
 - Loops: `while` loops
 - Logic: `&` (and), `|` (or), `true`, `false`
 
