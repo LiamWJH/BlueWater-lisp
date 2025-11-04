@@ -1,10 +1,10 @@
-# Ordinta!
+# Calxium
 ***"A minimal Lisp dialect in Python."***
 
 ---
 
 ## ⚙️ Introduction
-Ordinta is a small Lisp dialect written in python!  
+Calxium or Calx in short is a small Lisp dialect written in python!  
 
 Albeit in its middle stages, we aim to grow it with passion.
 
@@ -13,7 +13,7 @@ If you’re new to Lisp, check out this [quick intro](https://en.wikipedia.org/w
 ---
 
 ## 🧩 Features
-Here are some of the things **Ordinta** currently has to offer!:
+Here are some of the things **Calx** currently has to offer!:
 
 ### 🧮 Math Operations:
 - Basic arithmetic: `+`, `-`, `*`, `/`
@@ -55,7 +55,7 @@ We’re aiming for:
 ---
 
  ## 🤝 Contributing
-Interested in **Ordinta** and want to help it grow?
+Interested in **Calx** and want to help it grow?
 Check out our [contributing guide](docs/contributing.md) to get started!
 
 ---
