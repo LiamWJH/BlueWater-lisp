@@ -1,1 +1,0 @@
-about what you idiots?

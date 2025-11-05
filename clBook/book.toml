@@ -1,0 +1,5 @@
+[book]
+authors = ["Liam"]
+language = "en"
+src = "src"
+title = "clBook"
