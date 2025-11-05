@@ -1,3 +1,4 @@
+- [Cover](/)
 - [Introduction](intro.md)
 - [Hello World!](helloworld.md)
 - [About](about.md)
