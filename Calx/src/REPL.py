@@ -1,1 +1,0 @@
-from errors import Syntaxerror, Extensionerror, Miscerror, terminate
