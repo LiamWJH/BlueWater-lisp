@@ -1,24 +1,23 @@
-# Calxium
-***"A minimal Lisp dialect in Python."***
+# Stroll
+***"A Lisp dialect in Python."***
 
 ---
 
 ## ⚙️ Introduction
-Calxium or Calx in short is a small Lisp dialect written in python!  
-
-Albeit in its middle stages, we aim to grow it with passion.
+Stroll in short is a small Lisp dialect written in python! 
+Like a leisurely walk along the river we hope you enjoy your use and potential contribution to such project!
 
 If you’re new to Lisp, check out this [quick intro](https://en.wikipedia.org/wiki/Lisp_(programming_language)).
 
 ---
 
 ## 🧩 Features
-Here are some of the things **Calx** currently has to offer!:
+Here are some of the things **Stroll** currently has to offer!:
 
 ### 🧮 Math Operations:
 - Basic arithmetic: `+`, `-`, `*`, `/`
 - Comparisons: `>`, `<`, `>=`, `<=`, `==`, `!=`
-- Advanced math: `mod`, `pow`, `sqrt`, `abs`  *(experimental)*
+- Advanced math: `mod`, `pow`, `sqrt`, `abs`  *(untested)*
 
 ### 📦 Working with Data:
 - Variables: `let` to store values
@@ -27,7 +26,7 @@ Here are some of the things **Calx** currently has to offer!:
 
 ### 🔤 Strings & Text:
 - String creation with quotes
-- String operations: `concat`, `strlen`, `substr`  *(currently buggy)*
+- String operations: `concat`, `strlen`, `substr`  *(Also untested)*
 
 ### 🔁 Control Flow:
 - Conditionals: `if`, `elif`, `else` (Please look in the docs for it is quite different here...)
@@ -55,7 +54,7 @@ We’re aiming for:
 ---
 
  ## 🤝 Contributing
-Interested in **Calx** and want to help it grow?
+Interested in **Stroll** and want to help it grow?
 Check out our [contributing guide](docs/contributing.md) to get started!
 
 ---
