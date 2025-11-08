@@ -51,6 +51,7 @@ NATIVE_GLOBALS = {
         "min": builtins.min,
         "max": builtins.max,
         "sum": builtins.sum,
+        "open":builtins.open,
     },
     "math": math,
 }
@@ -78,7 +79,9 @@ def evaluate(ast, env=None):
 
         for idx, token in enumerate(ast):
             if token not in KW:
-                continue
+                if token in env:
+                    if _is_lang_fn(env[token]):
+                        
 
             if token == "*":     return E(ast[idx + 1]) * E(ast[idx + 2])
             if token == "/":     return E(ast[idx + 1]) / E(ast[idx + 2])

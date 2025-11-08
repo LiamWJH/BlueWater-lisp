@@ -1,1 +1,7 @@
-(fn readFile)
+(fn readFile filename
+    (native 'open(filename, "r").read()')
+)
+
+(fn writeFile filename|content
+    (native 'open(filename, "w").write(content)')
+)

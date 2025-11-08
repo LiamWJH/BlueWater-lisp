@@ -1,0 +1,7 @@
+(use "std" "core")
+(use "std" "fileIO")
+
+(let name (call scan "filename?"))
+(call print (call readFile name))
+
+(call writeFile "newfile.sr" "NEW CONTENT YAy")
