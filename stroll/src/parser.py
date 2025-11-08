@@ -9,24 +9,13 @@ def atom(token):
         except ValueError:
             return str(token)
 
-def parse(tokens, inquote=False, quotetype=None):
-    print(tokens)
+def parse(tokens):
+    #print(tokens)
     token = tokens.pop(0)
-
-    if token == "'" or token == '"' or token == "\'" or token == '\"':
-        if inquote:
-            if token == quotetype:
-                inquote = False
-                quotetype=None
-        else:
-            inquote = True
-            quotetype == quotetype
-
-    if token == '(' and inquote==False:
+    if token == '(':
         L = []
-
         while tokens[0] != ')':
-            L.append(parse(tokens, inquote, quotetype))
+            L.append(parse(tokens))
         tokens.pop(0)
         return L
     else:

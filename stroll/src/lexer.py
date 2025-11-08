@@ -27,6 +27,7 @@ def tokenize(s: str):
                 else:
                     buf.append(s[i])
                     i += 1
+            #print(buf)
             if finished:
                 tokens.append('"' + ''.join(buf) + '"')
             else:
@@ -48,6 +49,7 @@ def tokenize(s: str):
                 else:
                     buf.append(s[i])
                     i += 1
+            #print(buf)
             if finished:
                 tokens.append("'" + "".join(buf) + "'")
             else:
@@ -59,5 +61,5 @@ def tokenize(s: str):
             j += 1
         tokens.append(s[i:j])
         i = j
-
+    #print(tokens, "tok")
     return tokens

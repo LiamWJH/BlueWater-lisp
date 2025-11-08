@@ -5,7 +5,7 @@ def evaluate(ast, env={}):
         "*", "/", "-", "+", "let", "print", "scan", "if", "elif", "else", "else","while",
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
-        "len", "reverse", "concat", "strlen", "substr", "fn", "call"
+        "len", "reverse", "concat", "strlen", "substr", "fn", "call", "native"
     ]
 
     E = lambda x: evaluate(x, env)
@@ -183,7 +183,10 @@ def evaluate(ast, env={}):
 
             if token == "fn": #fn define
                 fnname = ast[idx + 1]
-                fnvars = ast[idx + 2].split("|")# the format wil be like fn sayhi x|y|z code
+                if "|" in ast[idx + 2]:
+                    fnvars = ast[idx + 2].split("|")# the format wil be like fn sayhi x|y|z code
+                else:
+                    fnvars = ast[idx + 2]
                 fnbody = ast[idx + 3:]
 
                 env[fnname] = [fnvars, fnbody]
@@ -201,6 +204,17 @@ def evaluate(ast, env={}):
                     result = evaluate(expr, localenv)
                 return result
 
+            if token == "native":
+                code = evaluate(ast[1], env)
+                if not isinstance(code, str):
+                    return code
+                # Try expression first
+                try:
+                    return eval(code, env)  # expression
+                except SyntaxError:
+                    exec(code, env)         # statement/block
+                    return None
+                
     # ---- Base case: literals ----
     elif isinstance(ast, (int, float)):
         return ast

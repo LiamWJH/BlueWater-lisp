@@ -6,8 +6,9 @@ from runtime import evaluate
 # --- prep program once ---
 USERCODE = getcliargs()
 src = []
+
 for raw_line in USERCODE.splitlines():
-    code = raw_line.split(";", 1)[0]
+    code = raw_line.split("!", 1)[0]
     if code.strip():
         src.append(code)
 
