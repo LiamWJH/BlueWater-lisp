@@ -19,5 +19,6 @@ while tokens:
 
 #print(wholetoken)
 #print(wholetoken, "\n")
+env = {}
 for action in wholetoken:
-    evaluate(action)
+    evaluate(action, env)

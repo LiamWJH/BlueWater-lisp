@@ -10,13 +10,20 @@ def atom(token):
             return str(token)
 
 def parse(tokens):
-    #print(tokens)
     token = tokens.pop(0)
+    #a = tokens.copy()
     if token == '(':
         L = []
-        while tokens[0] != ')':
-            L.append(parse(tokens))
-        tokens.pop(0)
-        return L
+        try:
+            while tokens[0] != ')':
+                L.append(parse(tokens))
+                if len(tokens) == 0:
+                    break
+            try:
+                tokens.pop(0)
+            finally:
+                return L
+        except Exception as e:
+            print(e)
     else:
         return atom(token)

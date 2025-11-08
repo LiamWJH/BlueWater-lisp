@@ -1,0 +1,2 @@
+(use "std" "core")
+(call print (+ "a" "b"))
