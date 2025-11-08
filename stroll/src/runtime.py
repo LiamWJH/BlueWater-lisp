@@ -44,6 +44,7 @@ def import_module(kind: str, name: str, env: dict, here_file: str) -> str:
 NATIVE_GLOBALS = {
     "__builtins__": {
         "print": builtins.print,
+        "input": builtins.input,
         "len": builtins.len,
         "range": builtins.range,
         "abs": builtins.abs,
@@ -63,11 +64,11 @@ def evaluate(ast, env=None):
         env = {}
 
     KW = [
-        "*", "/", "-", "+", "let", "print", "scan", "if", "elif", "else", "while",
+        "*", "/", "-", "+", "let", "if", "elif", "else", "while",
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
         "len", "reverse", "concat", "strlen", "substr",
-        "fn", "call", "native", "use"
+        "fn", "call", "native", "use", "return"
     ]
 
     E = lambda x: evaluate(x, env)
@@ -97,6 +98,8 @@ def evaluate(ast, env=None):
 
             if token == "&":     return bool(E(ast[idx + 1]) and E(ast[idx + 2]))
             if token == "|":     return bool(E(ast[idx + 1]) or  E(ast[idx + 2]))
+
+            if token == "return": return E(ast[idx + 1])
 
             # --- Variables ---
             if token == "let":
@@ -156,6 +159,7 @@ def evaluate(ast, env=None):
                 return s[start:end]
 
             # --- I/O ---
+            """
             if token == "print":
                 value = E(ast[idx + 1])
                 print(value)
@@ -164,6 +168,7 @@ def evaluate(ast, env=None):
             if token == "scan":
                 prompt = E(ast[idx + 1])
                 return input(prompt)
+            """
 
             # --- Control Flow ---
             if token == "if":

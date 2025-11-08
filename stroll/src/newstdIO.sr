@@ -1,0 +1,5 @@
+(use "std" "core")
+
+(call print (+ "a" "b"))
+(let x (call scan "Name:"))
+(call print x)

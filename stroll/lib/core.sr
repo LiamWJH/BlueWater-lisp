@@ -1,3 +1,6 @@
 (fn print value
     (native "print(value)")
 )
+(fn scan prompt
+    (native "input(prompt)")
+)
