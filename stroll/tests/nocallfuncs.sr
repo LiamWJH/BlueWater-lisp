@@ -1,0 +1,4 @@
+(use "std" "core")
+
+(print "Hello std core")
+(let x (scan "wtf"))
