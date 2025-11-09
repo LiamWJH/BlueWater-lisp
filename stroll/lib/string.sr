@@ -1,1 +1,6 @@
-(fn )
+(fn splitstr value|sep
+    (native 'value.split(sep)')
+)
+(fn joinstr values|joiner
+  (native "joiner.join([f'{v}' for v in values])")
+)

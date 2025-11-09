@@ -41,17 +41,7 @@ def import_module(kind: str, name: str, env: dict, here_file: str) -> str: # sel
     return abspath
 
 NATIVE_GLOBALS = {
-    "__builtins__": {
-        "print": builtins.print,
-        "input": builtins.input,
-        "len": builtins.len,
-        "range": builtins.range,
-        "abs": builtins.abs,
-        "min": builtins.min,
-        "max": builtins.max,
-        "sum": builtins.sum,
-        "open": builtins.open,
-    },
+    "__builtins__": builtins,
     "math": math,
 } # we need it for the exec and eval for native code(Safe sand box) we will be changing and adding stuff here as we use more native code
 

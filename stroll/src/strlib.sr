@@ -1,0 +1,10 @@
+(use "std" "core")
+(use "std" "string")
+
+(let a (scan "string to input"))
+(let b (scan "sep"))
+
+(let x (splitstr a b))
+(print (index x 2))
+
+(print (joinstr (list 1 2 3 4) "-"))
