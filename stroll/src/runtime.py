@@ -57,7 +57,7 @@ def evaluate(ast, env=None):
         "list", "append", "index", ">", "<", ">=", "<=", "==", "!=",
         "true", "false", "&", "|", "sqrt", "pow", "mod", "abs",
         "len", "reverse", "concat", "strlen", "substr",
-        "fn", "call", "native", "use", "return"
+        "fn", "call", "native", "use", "return","max","min","&","|","not","push-front","print","range"
     ] # we are transitioning from putting builtings in the KW to the core and lib folder
 
     E = lambda x: evaluate(x, env) # lambda func cause it looks cool and does stuff xD
@@ -109,6 +109,9 @@ def evaluate(ast, env=None):
             if token == "pow":   return math.pow(E(ast[idx + 1]), E(ast[idx + 2]))
             if token == "sqrt":  return math.sqrt(E(ast[idx + 1]))
             if token == "abs":   return abs(E(ast[idx + 1]))
+            if token == "max": return max(E(ast[idx + 1]), E(ast[idx + 2]))
+            if token == "min": return min(E(ast[idx + 1]), E(ast[idx + 2]))
+
 
             # comapritives
             if token == ">":     return E(ast[idx + 1]) >  E(ast[idx + 2])
@@ -121,6 +124,8 @@ def evaluate(ast, env=None):
             # logic
             if token == "&":     return bool(E(ast[idx + 1]) and E(ast[idx + 2]))
             if token == "|":     return bool(E(ast[idx + 1]) or  E(ast[idx + 2]))
+            if token == "not":   return not E(ast[idx + 1])
+
 
             # return as in return
             if token == "return": raise _Return(E(ast[idx + 1]))
@@ -131,6 +136,20 @@ def evaluate(ast, env=None):
                 value = E(ast[idx + 2])
                 env[name] = value
                 return (name, value)
+            
+            if token == "push-front":
+                name = ast[idx + 1]
+                value = E(ast[idx + 2])
+                if not isinstance(env[name], list):
+                     raise TypeError
+                env[name].insert(0, value)
+                return env[name]
+
+            #for print
+            if token == "print":
+                val = E(ast[idx + 1])
+                print(val)
+                return val
             
             # Array stuff
             # list for initiating a dynamic array
@@ -293,7 +312,12 @@ def evaluate(ast, env=None):
                     exec(code, NATIVE_GLOBALS, native_locals)
                     env.update(native_locals)
                     return None
-    
+            if token == "range":
+                args = [E(a) for a in ast[idx+1:]]
+                if len(args) == 1:
+                    return list(range(args[0]))
+                return list(range(args[0], args[1]))
+                
     #finally out of kw hell
     elif isinstance(ast, (int, float)):
         return ast
